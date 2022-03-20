@@ -5,9 +5,14 @@ use App\models\Event;
 
 use Illuminate\Http\Request;
 
-class EventController extends Controller
+class EventListController extends Controller
 {
     //
+
+    public function index() {
+        return view('browse', ['eventList' => Event::all()]);
+    }
+
     public function saveItem(Request $request){
         \Log::info(json_encode($request->all()));
 

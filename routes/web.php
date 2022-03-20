@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventListController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +13,10 @@ use App\Http\Controllers\EventController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [EventListController::class, 'index']);
+
+Route::get('/create', function () {
+    return view('create');
 });
 
-
-Route::post('/saveItemRoute', [EventController::class, 'saveItem'])->name('saveItem');
+Route::post('/saveItemRoute', [EventListController::class, 'saveItem'])->name('saveItem');

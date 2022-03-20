@@ -16,15 +16,7 @@
         </style>
     </head>
     <body class="antialiased">
-        <img src="{{ asset('img/logo.png') }}" alt="TruLife" style="width:300px;">
-        <p>
-            <a href="index.html">Browse events</a>
-            <a href="my_events.html">My events</a>
-            <a href="create.html">Create event</a>
-            <a href="login.html">Log in</a>
-            <a href="signup.html">Sign up</a>
-            <a href="profile.html">My account</a>
-        </p>
+        @include('header')
         <h1>Create Event</h1>
         <form method = "post" action="{{ route('saveItem') }}" accept_charset="UTF-8">
             {{ csrf_field() }} 
