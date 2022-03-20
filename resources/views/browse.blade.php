@@ -19,8 +19,10 @@
         @include('header')
         <h1>Events</h1>
         @foreach ($eventList as $event)
-            <p><b>{{ $event->title }}</b> </br>
-            Date(s): {{ $event->dates }}</p>
+            <div class='card'>
+                <p><b>{{ $event->title }}</b> </br>
+                Date(s): {{ $event->dates }}</p>
+            </div>
         @endforeach
     </body>
 </html>
