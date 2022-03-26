@@ -17,16 +17,9 @@
     </head>
     <body class="antialiased">
         @include('header')
-        <h1>Events</h1>
-        <div class="event_list">
-            @foreach ($eventList as $event)
-            <a href="/event/{{ $event->id }}">
-                <div class='card'>
-                    <p><b>{{ $event->title }}</b> </br>
-                    Date(s): {{ $event->dates }}</p>
-                </div>
-            </a>
-            @endforeach
-        </div>
+        <a href="/">< Back To Event List</a>
+        <p> {{ $event->title }} </p>
+        <p> {{ $event->description }} </p>
+        <p> {{ $event->dates }} </p>
     </body>
 </html>

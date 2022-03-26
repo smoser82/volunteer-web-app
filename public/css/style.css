@@ -21,3 +21,22 @@
 .header_left {
     text-align: left;
 }
+
+div.event_list > a {
+    color: inherit;
+    text-decoration: inherit; /* no underline */
+}
+
+.center {
+    display: block;
+    text-align: center;
+  }
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+}
