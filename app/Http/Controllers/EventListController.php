@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\models\Event;
+use App\Models\Event;
 
 use Illuminate\Http\Request;
 
