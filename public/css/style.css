@@ -41,7 +41,10 @@ a.button {
     color: initial;
 }
 
-.back-button {
+
+/* -------------------- Note that these are temporary until we figure out a style -------------------- */
+
+.back_button {
     text-decoration: none;
     display: inline-block;
     padding: 8px 16px;
@@ -51,7 +54,25 @@ a.button {
     border-radius: 10px;
     color: black;
 }
-.back-button:hover {
+.back_button:hover {
     color: white;
     background-color: darkblue;
+}
+
+.sort_button {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: darkblue;
+    border-radius: 10px;
+    color: black;
+    box-shadow: 2px;
+}
+
+.sort_button:hover {
+    color: white;
+    background-color: darkblue;
+    cursor: pointer;
 }
