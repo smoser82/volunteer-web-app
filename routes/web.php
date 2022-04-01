@@ -13,10 +13,10 @@ use App\Http\Controllers\EventListController;
 |
 */
 
-Route::get('/', [EventListController::class, 'index']);
+Route::get('/', [EventListController::class, 'browsePage']);
 
-Route::get('/create', function () {
-    return view('create');
-});
+Route::get('/create', [EventListController::class, 'createPage']);
+
+Route::get('/event/{id_event}', [EventListController::class, 'eventPage']);
 
 Route::post('/saveItemRoute', [EventListController::class, 'saveItem'])->name('saveItem');
