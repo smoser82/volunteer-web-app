@@ -19,14 +19,16 @@
         @include('header')
         <h1>Events</h1>
         <div class="event_list">
-            @foreach ($eventList as $event)
+        @foreach ($eventList as $event)
+            @if($event->visibility == 1)
             <a href="/event/{{ $event->id }}">
                 <div class='card'>
                     <p><b>{{ $event->title }}</b> </br>
-                    Date(s): {{ $event->dates }}</p>
+                    Date(s): {{ $event->date_start }} to {{ $event->date_end }}</p>
                 </div>
             </a>
-            @endforeach
+            @endif
+        @endforeach
         </div>
     </body>
 </html>

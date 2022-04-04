@@ -23,12 +23,11 @@
         <a href="/" class="back-button"><span class="mdi mdi-arrow-left"></span> Back To Event List</a>
         <h1> {{ $event->title }} </h1>
         <hr>
-        <h3> <i class="mdi mdi-calendar-range"></i> Date and Time</h3>
-        <p>{{ $event->dates }} </p>
+        <h3> <i class="mdi mdi-calendar-range"></i> Dates</h3>
+        <p>{{ $event->date_start }} to {{ $event->date_end }}</p>
         <h3> <i class="mdi mdi-text"></i> Description</h3>
         <p>{{ $event->description }} </p>
         <h3><i class="mdi mdi-account-box-outline"></i> Contact Information</h3>
-        <p>&ltContact Name&gt <!-- {{ $event->nameContact }} --> at &lt<a href="mailto:temp@abc.com">Contact Email</a>&gt<!-- <a href="mailto:{{ $event->emailContact }}>"{{ $event->emailContact }}</a>--></p>
-        <!-- Replace text above between "&lt" and "&gt" with the commented sections after they are implemented -->
+        <p>{{ $event->contact_name }} at &lt<a href="mailto:{{ $event->contact_email }}">{{ $event->contact_email }}</a>&gt</p>
     </body>
 </html>
