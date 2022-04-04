@@ -17,18 +17,10 @@
     </head>
     <body class="antialiased">
         @include('header')
-        <h1>Events</h1>
-        <div class="event_list">
-        @foreach ($eventList as $event)
-            @if($event->visibility == 1)
-            <a href="/event/{{ $event->id }}">
-                <div class='card'>
-                    <p><b>{{ $event->title }}</b> </br>
-                    Date(s): {{ $event->date_start }} to {{ $event->date_end }}</p>
-                </div>
-            </a>
-            @endif
-        @endforeach
+        <div class="center">
+            <img src="{{ asset('img/notFound.png') }}" alt="Image of man fishing" style="width:300px;">
+            <h1> Oops...Event not found!</h1>
+            <button onclick="location.href='/'" type="button">Browse Events</button>
         </div>
     </body>
 </html>
