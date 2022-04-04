@@ -19,10 +19,12 @@
         @include('header')
         <h1>Events</h1>
         @foreach ($eventList as $event)
+            @if($event->visibility == 1)
             <div class='card'>
                 <p><b>{{ $event->title }}</b> </br>
-                Date(s): {{ $event->dates }}</p>
+                Date(s): {{ $event->date_start }} to {{ $event->date_end }}</p>
             </div>
+            @endif
         @endforeach
     </body>
 </html>
