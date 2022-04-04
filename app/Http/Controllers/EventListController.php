@@ -19,7 +19,16 @@ class EventListController extends Controller
         $newEvent = new Event;
         $newEvent->title = $request->title;
         $newEvent->description = $request->description; 
-        $newEvent->dates = $request->dates;
+        $newEvent->date_start = $request->date_start;
+        $newEvent->date_end = $request->date_end;
+        if ($request->visibility == "on") {
+            $newEvent->visibility = 1;
+        } else {
+            $newEvent->visibility = 0;
+        }
+        $newEvent->contact_name = $request->contact_name;
+        $newEvent->contact_email = $request->contact_email;
+        $newEvent->id_owner = 1;
         $newEvent->save();
 
         return redirect('/');
