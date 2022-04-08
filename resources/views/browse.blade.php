@@ -34,16 +34,17 @@
         <!-- If events should be shown in ascending order -->
         @if($asc === 'true')
             <!-- Sorting buttons -->
-            <span class="sort_button" onclick="sort('title')">Title <span class="mdi mdi-arrow-down-bold"></span></span>
-            <span class="sort_button" onclick="sort('dates')">Date <span class="mdi mdi-arrow-down-bold"></span></span>
+            <button class="sort_button" onclick="sort('title')">Title <span class="mdi mdi-arrow-down-bold"></span></button>
+            <button class="sort_button" onclick="sort('dates')">Date <span class="mdi mdi-arrow-down-bold"></span></button>
+            <input class="filter_text" type="text" placeholder="Filter Title" onchange="filter(this.value)">
             <div class="event_list">
                 <!-- Add each event sorted ascending -->
                 @foreach ($eventList->sortBy($sort) as $event)
                     @if($event->visibility == 1)
-                        <a href="/event/{{ $event->id }}">
+                        <a class="event" href="/event/{{ $event->id }}">
                             <div class='card'>
                                 <p><b>{{ $event->title }}</b> </br>
-                                Date(s): {{ $event->date_start }} to {{ $event->date_end }}</p>
+                                Date(s): <span>{{ $event->date_start }}</span> to <span>{{ $event->date_end }}</span></p>
                             </div>
                         </a>
                     @endif
@@ -54,21 +55,22 @@
         @else
             <!-- If being sorted by title -->
             @if($sort === 'title')
-                <span class="sort_button" onclick="sort('title')">Title <span class="mdi mdi-arrow-up-bold"></span></span>
-                <span class="sort_button" onclick="sort('dates')">Date <span class="mdi mdi-arrow-down-bold"></span></span>
+                <button class="sort_button" onclick="sort('title')">Title <span class="mdi mdi-arrow-up-bold"></span></button>
+                <button class="sort_button" onclick="sort('dates')">Date <span class="mdi mdi-arrow-down-bold"></span></button>
             <!-- If sorted by dates -->
             @elseif($sort === 'dates')
-                <span class="sort_button" onclick="sort('title')">Title <span class="mdi mdi-arrow-down-bold"></span></span>
-                <span class="sort_button" onclick="sort('dates')">Date <span class="mdi mdi-arrow-up-bold"></span></span>
+                <button class="sort_button" onclick="sort('title')">Title <span class="mdi mdi-arrow-down-bold"></span></button>
+                <button class="sort_button" onclick="sort('dates')">Date <span class="mdi mdi-arrow-up-bold"></span></button>
             @endif
+            <input class="filter_text" type="text" placeholder="Filter Title" onchange="filter(this.value)">
             <div class="event_list">
                 <!-- Add each event sorted descending -->
                 @foreach ($eventList->sortByDesc($sort) as $event)
                     @if($event->visibility == 1)
-                        <a href="/event/{{ $event->id }}">
+                        <a class="event" href="/event/{{ $event->id }}">
                             <div class='card'>
                                 <p><b>{{ $event->title }}</b> </br>
-                                Date(s): {{ $event->date_start }} to {{ $event->date_end }}</p>
+                                Date(s): <span>{{ $event->date_start }}</span> to <span>{{ $event->date_end }}</span></p>
                             </div>
                         </a>
                     @endif
@@ -97,11 +99,40 @@
                 // No sort or being sorted by something else
                 else {
                     url.searchParams.set("sort", key);
+                    url.searchParams.set("asc", "false");
                        
                 }
                 // Updates page
                 window.location = url;
             }
+
+            // Hides/shows events based on text in the title
+            function filter(text) {
+
+                // Get array of events
+                events = document.getElementsByClassName("event");
+
+                // Loop through every event
+                for (var x = 0; x < events.length; x++) {
+
+                    // Get title of each event
+                    title = events[x].getElementsByTagName("b")[0].innerHTML.toLowerCase();
+
+                    // Get the dates of each event
+                    beginDate = events[x].getElementsByTagName("span")[0].innerHTML.toLowerCase();
+                    endDate = events[x].getElementsByTagName("span")[1].innerHTML.toLowerCase();
+
+                    // If the text is not in the title
+                    if (title.indexOf(text) == -1 && beginDate.indexOf(text) == -1 && endDate.indexOf(text) == -1) {
+                        events[x].style.display = "none";
+                    }
+                    else {
+                        events[x].style.display = "inline";
+                    }
+                }
+
+                
+            } // end filter()
             
         </script>
     </body>
