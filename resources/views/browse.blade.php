@@ -109,6 +109,9 @@
             // Hides/shows events based on text in the title
             function filter(text) {
 
+                // Converts text to lower case
+                text = text.toLowerCase();
+
                 // Get array of events
                 events = document.getElementsByClassName("event");
 
