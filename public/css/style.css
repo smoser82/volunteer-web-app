@@ -44,6 +44,7 @@ a.button {
 
 /* -------------------- Note that these are temporary until we figure out a style -------------------- */
 
+/* Buttons used for returning to the event list from an event page */
 .back_button {
     text-decoration: none;
     display: inline-block;
@@ -59,6 +60,7 @@ a.button {
     background-color: darkblue;
 }
 
+/* Buttons used for sorting the event table */
 .sort_button {
     text-decoration: none;
     display: inline-block;
@@ -77,6 +79,7 @@ a.button {
     cursor: pointer;
 }
 
+/* Text input used for filtering the events table */
 .filter_text {
     border-style: solid;
     border-width: 3px;
@@ -89,5 +92,5 @@ a.button {
 }
 
 .filter_text:focus {
-    background-color: lightblue;
+    background-color: rgb(190, 230, 255);
 }
