@@ -110,7 +110,7 @@
                 // No sort or being sorted by something else
                 else {
                     url.searchParams.set("sort", key);
-                    url.searchParams.set("asc", "false");
+                    url.searchParams.set("asc", "true");
                        
                 }
                 // Updates page
