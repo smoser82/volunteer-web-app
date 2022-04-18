@@ -62,5 +62,7 @@
                 </x-button>
             </div>
         </form>
+        <br>
+        <a href="/" class="back-button"><span class="mdi mdi-arrow-left"></span>Back</a>
     </x-auth-card>
 </x-guest-layout>

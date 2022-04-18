@@ -15,11 +15,11 @@ use App\Http\Controllers\EventListController;
 
 Route::get('/', [EventListController::class, 'browsePage'])->name("browse");
 
-Route::get('/create', [EventListController::class, 'createPage'])->name("create");
+Route::get('/create', [EventListController::class, 'createPage'])->middleware(['auth'])->name("create");
 
 Route::get('/event/{id_event}', [EventListController::class, 'eventPage'])->name("event");
 
-Route::post('/saveItemRoute', [EventListController::class, 'saveItem'])->name('saveItem');
+Route::post('/saveItemRoute', [EventListController::class, 'saveItem'])->middleware(['auth'])->name('saveItem');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
