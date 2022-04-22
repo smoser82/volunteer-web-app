@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
+<x-app-layout>
+    <x-slot name="header">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,13 +13,13 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
-    </head>
-    <body class="antialiased">
-        @include('header')
+    </x-slot>
+
+    <x-slot name="slot">
         <div class="center">
             <img src="{{ asset('img/notFound.png') }}" alt="Image of man fishing" style="width:300px;">
             <h1> Oops...Event not found!</h1>
             <button onclick="location.href='/'" type="button">Browse Events</button>
         </div>
-    </body>
-</html>
+    </x-slot>
+</x-app-layout>
