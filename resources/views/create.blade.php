@@ -24,7 +24,9 @@
                         <input type="text" id="contact_name" name="contact_name"><br><br>
                         <label for="contact_email">Contact Email:</label>
                         <input type="text" id="contact_email" name="contact_email"><br><br>
-                        <input type="submit" value="Submit">
+                        <x-button class="ml-3">
+                            {{ __('Submit') }}
+                        </x-button>
                     </form> 
                 </div>
             </div>
