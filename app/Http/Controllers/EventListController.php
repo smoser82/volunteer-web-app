@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Signup;
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 
 class EventListController extends Controller
@@ -48,18 +50,26 @@ class EventListController extends Controller
         return redirect('/');
     }
 
-    public function signup(Request $request) {
-        $newSignup = new Signup;
-        $newSignup->id_user = $request->id_user;
-        $newSignup->id_slot = $request->id_slot;
-        $newSignup->save();
+    public function signup($id_timeslot) {
+        if (Auth::check()) {
+            $newSignup = new Signup;
+            $newSignup->id_user = Auth::user()->id;
+            $newSignup->id_slot = $request->id_timeslot;
+            $newSignup->save();
+        }
+
+        return back()->withInput();
     }
 
     public function removeSignup(Request $request) {
-        $signup = Signup::where('id_user', $request->id_user)
-                        ->where('id_slot', $request->id_slot)
-                        ->first();
+        if (Auth::check()) {
+            $signup = Signup::where('id_user', Auth::user()->id)
+                            ->where('id_slot', $request->id_timeslot)
+                            ->first();
 
-        $signup->delete();
+            $signup->delete();
+        }
+
+        return back()->withInput();
     }
 }
