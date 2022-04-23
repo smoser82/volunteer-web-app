@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Event;
+use App\Models\Signup;
 
 use Illuminate\Http\Request;
 
@@ -45,5 +46,20 @@ class EventListController extends Controller
         $newEvent->save();
 
         return redirect('/');
+    }
+
+    public function signup(Request $request) {
+        $newSignup = new Signup;
+        $newSignup->id_user = $request->id_user;
+        $newSignup->id_slot = $request->id_slot;
+        $newSignup->save();
+    }
+
+    public function removeSignup(Request $request) {
+        $signup = Signup::where('id_user', $request->id_user)
+                        ->where('id_slot', $request->id_slot)
+                        ->first();
+
+        $signup->delete();
     }
 }
