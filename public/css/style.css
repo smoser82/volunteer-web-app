@@ -51,7 +51,11 @@ a.button {
     color: initial;
 }
 
-.back-button {
+
+/* -------------------- Note that these are temporary until we figure out a style -------------------- */
+
+/* Buttons used for returning to the event list from an event page */
+.back_button {
     text-decoration: none;
     display: inline-block;
     padding: 8px 16px;
@@ -61,9 +65,44 @@ a.button {
     border-radius: 10px;
     color: black;
     justify-items: right;
-;}
+}
 
 .back-button:hover {
     color: white;
     background-color: darkblue;
+}
+
+/* Buttons used for sorting the event table */
+.sort_button {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: darkblue;
+    border-radius: 10px;
+    color: black;
+    box-shadow: 2px;
+}
+
+.sort_button:hover {
+    color: white;
+    background-color: darkblue;
+    cursor: pointer;
+}
+
+/* Text input used for filtering the events table */
+.filter_text {
+    border-style: solid;
+    border-width: 3px;
+    border-color: darkblue;
+    border-radius: 5px;
+}
+
+.filter_text:hover {
+    background-color: lightskyblue;
+}
+
+.filter_text:focus {
+    background-color: rgb(190, 230, 255);
 }
