@@ -24,7 +24,15 @@ class EventListController extends Controller
     public function eventPage($id_event) {
         $event = Event::where('id', $id_event)->first();
         if ($event != null) {
-            return view('event', ['event' => $event]);
+            $timeslots = null;
+            if (Auth::check()) {
+                $timeslots = Timeslot::selectRaw("timeslots.*, signups.id_user")
+                    ->where('timeslots.id_event', $id_event)
+                    ->leftJoin('signups', 'signups.id_slot', '=', 'timeslots.id')
+                    ->orderBy('timeslots.datetime_start')
+                    ->get();
+            }
+            return view('event', ['event' => $event, 'timeslots' => $timeslots]);
         } else {
             return view('notFound');
         }
