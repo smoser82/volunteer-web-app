@@ -7,14 +7,18 @@
 
         <title>Volunteering</title>
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+       <!-- Fonts -->
+       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+       <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+       <!-- Styles -->
+       <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+       <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+       <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+       <!-- Scripts -->
+       <script src="{{ asset('js/app.js') }}" defer></script>
+       
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">

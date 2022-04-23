@@ -2,6 +2,7 @@
     /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
+    margin: 1%;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -11,6 +12,8 @@
 
 .header {
     display: flex;
+    justify-content: space-between;
+    align-content: center;
 }
 
 .header_right {
@@ -27,10 +30,17 @@ div.event_list > a {
     text-decoration: inherit; /* no underline */
 }
 
-.center {
+.center-text {
     display: block;
     text-align: center;
-  }
+}
+
+.center-img {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 a.button {
     -webkit-appearance: button;
@@ -54,8 +64,10 @@ a.button {
     border-color: darkblue;
     border-radius: 10px;
     color: black;
+    justify-items: right;
 }
-.back_button:hover {
+
+.back-button:hover {
     color: white;
     background-color: darkblue;
 }
