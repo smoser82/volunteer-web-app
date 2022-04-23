@@ -68,7 +68,7 @@ class EventListController extends Controller
         return redirect('/');
     }
 
-    public function signup($id_timeslot) {
+    public function signup(Request $request) {
         if (Auth::check()) {
             $newSignup = new Signup;
             $newSignup->id_user = Auth::user()->id;
