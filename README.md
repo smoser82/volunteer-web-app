@@ -43,7 +43,12 @@ If WSL claims that Docker is not running when you attempt to start the developme
 The file "docker-compose-proxy.yml" is a working example setup for use with the "Caddy" reverse proxy. Just make sure there is a docker network named "proxy" that Caddy is a part of.
 
 If you need to make the network:
+
 `docker network create proxy`
+
+To use HTTPS with proxy:
+
+Modify the ".env" file and change the APP_ENV variable's value to "production". This enables forced HTTPS and requires the proxy to be set up for such.
 
 #### For use with Caddy
 1) Create the network as described above
