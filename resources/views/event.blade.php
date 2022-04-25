@@ -49,6 +49,17 @@
                                     </form>
                                 @endif
                             @endforeach
+
+                            @if (Auth::user()->id == $event->id_owner)
+                                <form method="POST" action="/removeEvent">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" value="{{ $event->id }}" id="id_event" name="id_event">
+                                    <p>You are the owner of this event. Click this button to remove the event.</p>
+                                    <x-button style="border: 2px solid black; background-color: red; color: black;">
+                                        {{ __('DELETE EVENT') }}
+                                    </x-button>
+                                </form>
+                            @endif
                         @else
                             <br/><h2>Please login to see available timeslots for this event.</h2>
                         @endauth

@@ -91,4 +91,24 @@ class EventListController extends Controller
 
         return back()->withInput();
     }
+
+    public function removeEvent(Request $request) {
+        $timeslots = Timeslot::where('id_event', $request->id_event)->get();
+
+        foreach ($timeslots as $timeslot) {
+            $signups = Signup::where('id_slot', $timeslot->id)->get();
+
+            foreach ($signups as $signup) {
+                $signup->delete();
+            }
+
+            $timeslot->delete();
+        }
+
+        $event = Event::where('id', $request->id_event)->first();
+
+        $event->delete();
+
+        return redirect('/');
+    }
 }
