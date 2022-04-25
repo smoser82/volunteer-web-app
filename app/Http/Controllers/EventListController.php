@@ -29,6 +29,7 @@ class EventListController extends Controller
                 $timeslots = Timeslot::selectRaw("timeslots.*, signups.id_user")
                     ->where('timeslots.id_event', $id_event)
                     ->leftJoin('signups', 'signups.id_slot', '=', 'timeslots.id')
+                    ->where('signups.id_user', $Auth::user()->id)
                     ->orderBy('timeslots.datetime_start')
                     ->get();
             }
