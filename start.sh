@@ -8,15 +8,14 @@ if docker ps | grep -q $NAME
 then
 
   echo "The project appears to already be running."
-  echo -n "Would you like to attempt to start anyway? (Y/n) "
+  echo -n "Would you like to attempt to start anyway? (y/N) "
   read START
 
   # If the user wants to attempt to start it anyway
-  if [ "$START" ] && [[ $START == "n" ]]
+  if [ "$START" ] && [[ $START == "y" ]]
   then
-    exit 0
+    # Start up project
+    ./vendor/bin/sail up -d
   fi
 fi
 
-# Start up project
-./vendor/bin/sail up -d
