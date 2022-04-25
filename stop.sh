@@ -3,7 +3,7 @@
 # Name of main laravel container
 NAME="php-laravel"
 
-# If the container is running
+# If the container is already running
 if docker ps | grep -q $NAME
 then
   # Stop laravel containers
