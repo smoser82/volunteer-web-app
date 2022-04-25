@@ -67,7 +67,7 @@ a.button {
     justify-items: right;
 }
 
-.back-button:hover {
+.back_button:hover {
     color: white;
     background-color: darkblue;
 }

@@ -3,7 +3,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ $event->title }}
         </h2>
-        <a href="/" class="back-button"><span class="mdi mdi-arrow-left"></span> Back To Event List</a>
+        <a href="/" class="back_button"><span class="mdi mdi-arrow-left"></span> Back To Event List</a>
     </x-slot>
 
     <x-slot name="slot">
