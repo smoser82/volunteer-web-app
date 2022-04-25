@@ -26,24 +26,26 @@
                                 @if ($timeslot->id_user == 0)
                                     <form method="POST" action="/signup">
                                         {{ csrf_field() }}
-                                        <a class="event" href="#" onclick="this.parentElement.submit()">
                                         <input type="hidden" value="{{ $timeslot->id }}" id="id_timeslot" name="id_timeslot">
-                                            <div class='card'>
-                                                <p><b>{{ $timeslot->name }}</b> </br>
-                                                Timeframe: <span>{{ $timeslot->datetime_start }}</span> to <span>{{ $timeslot->datetime_end }}</span></p>
-                                            </div>
-                                        </a>
+                                        <div class='card' style="display: flex; justify-content: space-between;">
+                                            <p><b>{{ $timeslot->name }}</b> </br>
+                                            Timeframe: <span>{{ $timeslot->datetime_start }}</span> to <span>{{ $timeslot->datetime_end }}</span></p>
+                                            <x-button class="ml-3" style="float:right;">
+                                                {{ __('Sign up') }}
+                                            </x-button>
+                                        </div>
                                     </form>
                                 @else
                                     <form method="POST" action="/removeSignup">
                                         {{ csrf_field() }}
-                                        <a class="event" href="#" onclick="this.parentElement.submit()">
                                         <input type="hidden" value="{{ $timeslot->id }}" id="id_timeslot" name="id_timeslot">
-                                            <div class='card'>
-                                                <p><b>{{ $timeslot->name }}</b> SIGNED UP!</br>
-                                                Timeframe: <span>{{ $timeslot->datetime_start }}</span> to <span>{{ $timeslot->datetime_end }}</span></p>
-                                            </div>
-                                        </a>
+                                        <div class='card' style="display: flex; justify-content: space-between;">
+                                            <p><b>{{ $timeslot->name }}</b> - SIGNED UP!</br>
+                                            Timeframe: <span>{{ $timeslot->datetime_start }}</span> to <span>{{ $timeslot->datetime_end }}</span></p>
+                                            <x-button class="ml-3" style="float:right;">
+                                                {{ __('Remove signup') }}
+                                            </x-button>
+                                        </div>
                                     </form>
                                 @endif
                             @endforeach
