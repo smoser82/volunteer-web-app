@@ -21,6 +21,9 @@ Route::get('/event/{id_event}', [EventListController::class, 'eventPage'])->name
 
 Route::post('/saveItemRoute', [EventListController::class, 'saveItem'])->middleware(['auth'])->name('saveItem');
 
+Route::post('/signup', [EventListController::class, 'signUp'])->middleware(['auth'])->name('signup');
+Route::post('/removeSignup', [EventListController::class, 'removeSignup'])->middleware(['auth'])->name('removeSignup');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

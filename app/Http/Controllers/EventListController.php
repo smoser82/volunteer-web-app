@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\Event;
+use App\Models\Timeslot;
+use App\Models\Signup;
+
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
@@ -20,7 +24,15 @@ class EventListController extends Controller
     public function eventPage($id_event) {
         $event = Event::where('id', $id_event)->first();
         if ($event != null) {
-            return view('event', ['event' => $event]);
+            $timeslots = null;
+            if (Auth::check()) {
+                $timeslots = Timeslot::selectRaw("timeslots.*, signups.id_user")
+                    ->where('timeslots.id_event', $id_event)
+                    ->leftJoin('signups', 'signups.id_slot', '=', 'timeslots.id')
+                    ->orderBy('timeslots.datetime_start')
+                    ->get();
+            }
+            return view('event', ['event' => $event, 'timeslots' => $timeslots]);
         } else {
             return view('notFound');
         }
@@ -28,22 +40,54 @@ class EventListController extends Controller
 
     public function saveItem(Request $request){
         \Log::info(json_encode($request->all()));
+        
+        if (Auth::check()) {
+            $newEvent = new Event;
+            $newEvent->title = $request->title;
+            $newEvent->description = $request->description;
+            $newEvent->date_start = $request->date_start;
+            $newEvent->date_end = $request->date_end;
+            if ($request->visibility == "on") {
+                $newEvent->visibility = 1;
+            } else {
+                $newEvent->visibility = 0;
+            }
+            $newEvent->contact_name = $request->contact_name;
+            $newEvent->contact_email = $request->contact_email;
+            $newEvent->id_owner = Auth::user()->id;
+            $newEvent->save();
 
-        $newEvent = new Event;
-        $newEvent->title = $request->title;
-        $newEvent->description = $request->description; 
-        $newEvent->date_start = $request->date_start;
-        $newEvent->date_end = $request->date_end;
-        if ($request->visibility == "on") {
-            $newEvent->visibility = 1;
-        } else {
-            $newEvent->visibility = 0;
+            $newTimeslot = new Timeslot;
+            $newTimeslot->id_event = $newEvent->id;
+            $newTimeslot->name = "Full Event";
+            $newTimeslot->datetime_start = $request->date_start;
+            $newTimeslot->datetime_end = $request->date_end;
+            $newTimeslot->save();
         }
-        $newEvent->contact_name = $request->contact_name;
-        $newEvent->contact_email = $request->contact_email;
-        $newEvent->id_owner = 1;
-        $newEvent->save();
 
         return redirect('/');
+    }
+
+    public function signup(Request $request) {
+        if (Auth::check()) {
+            $newSignup = new Signup;
+            $newSignup->id_user = Auth::user()->id;
+            $newSignup->id_slot = $request->id_timeslot;
+            $newSignup->save();
+        }
+
+        return back()->withInput();
+    }
+
+    public function removeSignup(Request $request) {
+        if (Auth::check()) {
+            $signup = Signup::where('id_user', Auth::user()->id)
+                            ->where('id_slot', $request->id_timeslot)
+                            ->first();
+
+            $signup->delete();
+        }
+
+        return back()->withInput();
     }
 }

@@ -3,7 +3,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ $event->title }}
         </h2>
-        <a href="/" class="back-button"><span class="mdi mdi-arrow-left"></span> Back To Event List</a>
+        <a href="/" class="back_button"><span class="mdi mdi-arrow-left"></span> Back To Event List</a>
     </x-slot>
 
     <x-slot name="slot">
@@ -19,6 +19,39 @@
                         <p>{{ $event->description }} </p>
                         <h3><i class="mdi mdi-account-box-outline"></i> Contact Information</h3>
                         <p>{{ $event->contact_name }} at &lt<a href="mailto:{{ $event->contact_email }}">{{ $event->contact_email }}</a>&gt</p>
+
+                        @auth
+                            <br/><h1>Timeslots:</h1>
+                            @foreach ($timeslots as $timeslot)
+                                @if ($timeslot->id_user == 0)
+                                    <form method="POST" action="/signup">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" value="{{ $timeslot->id }}" id="id_timeslot" name="id_timeslot">
+                                        <div class='card' style="display: flex; justify-content: space-between;">
+                                            <p><b>{{ $timeslot->name }}</b> </br>
+                                            Timeframe: <span>{{ $timeslot->datetime_start }}</span> to <span>{{ $timeslot->datetime_end }}</span></p>
+                                            <x-button class="ml-3" style="float:right;">
+                                                {{ __('Sign up') }}
+                                            </x-button>
+                                        </div>
+                                    </form>
+                                @else
+                                    <form method="POST" action="/removeSignup">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" value="{{ $timeslot->id }}" id="id_timeslot" name="id_timeslot">
+                                        <div class='card' style="display: flex; justify-content: space-between;">
+                                            <p><b>{{ $timeslot->name }}</b> - SIGNED UP!</br>
+                                            Timeframe: <span>{{ $timeslot->datetime_start }}</span> to <span>{{ $timeslot->datetime_end }}</span></p>
+                                            <x-button class="ml-3" style="float:right;">
+                                                {{ __('Remove signup') }}
+                                            </x-button>
+                                        </div>
+                                    </form>
+                                @endif
+                            @endforeach
+                        @else
+                            <br/><h2>Please login to see available timeslots for this event.</h2>
+                        @endauth
                     </div>
                 </div>
             </div>
