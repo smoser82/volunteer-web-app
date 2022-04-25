@@ -16,6 +16,11 @@ then
   then
     # Start up project
     ./vendor/bin/sail up -d
+  else
+    # End script
+    exit 0
   fi
+else
+  # Start up project
+  ./vendor/bin/sail up -d
 fi
-
