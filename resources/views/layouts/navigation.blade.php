@@ -63,7 +63,7 @@
                                     {{ __('Login') }}
                                 </x-dropdown-link>
                                 @if (Route::has('register'))
-                                    <x-dropdown-link :href="route('login')">
+                                    <x-dropdown-link :href="route('register')">
                                         {{ __('Register') }}
                                     </x-dropdown-link>
                                 @endif
