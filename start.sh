@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Name of main laravel container
-NAME="laravel.test"
+NAME="php-laravel"
 
 # If the container is already running
 if docker ps | grep -q $NAME
