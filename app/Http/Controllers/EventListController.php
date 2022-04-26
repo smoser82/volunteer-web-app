@@ -95,9 +95,11 @@ class EventListController extends Controller
     public function removeEvent(Request $request) {
         $timeslots = Timeslot::where('id_event', $request->id_event)->get();
 
+        // For each timeslot associated with this event
         foreach ($timeslots as $timeslot) {
             $signups = Signup::where('id_slot', $timeslot->id)->get();
-
+            
+            // Remove all signups
             foreach ($signups as $signup) {
                 $signup->delete();
             }
@@ -105,6 +107,7 @@ class EventListController extends Controller
             $timeslot->delete();
         }
 
+        // Then remove the event itself
         $event = Event::where('id', $request->id_event)->first();
 
         $event->delete();
