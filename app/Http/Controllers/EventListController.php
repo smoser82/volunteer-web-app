@@ -6,6 +6,7 @@ use App\Models\Timeslot;
 use App\Models\Signup;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -26,12 +27,10 @@ class EventListController extends Controller
         if ($event != null) {
             $timeslots = null;
             if (Auth::check()) {
-                $timeslots = Timeslot::selectRaw("timeslots.*, signups.id_user")
-                    ->where('timeslots.id_event', $id_event)
-                    ->leftJoin('signups', 'signups.id_slot', '=', 'timeslots.id')
-                    ->where('signups.id_user', $Auth::user()->id)
-                    ->orderBy('timeslots.datetime_start')
-                    ->get();
+                $timeslots = DB::select(
+                    'SELECT * FROM timeslots t LEFT OUTER JOIN
+                    (SELECT id_user, id_slot FROM signups WHERE id_user = ?) s
+                    ON s.id_slot = t.id WHERE t.id = ?;' , [Auth::user()->id, $id_event]);
             }
             return view('event', ['event' => $event, 'timeslots' => $timeslots]);
         } else {
