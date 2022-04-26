@@ -20,8 +20,8 @@
                             <input type="date" id="date_start" name="date_start"><br><br>
                             <label for="date_end">Date End:</label>
                             <input type="date" id="date_end" name="date_end"><br><br>
-                            <label for="visibility">Published:</label>
-                            <input type="checkbox" id="visibility" name="visibility" checked><br><br>
+                            <!-- <label for="visibility">Published:</label>
+                            <input type="checkbox" id="visibility" name="visibility" checked><br><br> -->
                             <label for="contact_name">Contact Name:</label>
                             <input type="text" id="contact_name" name="contact_name"><br><br>
                             <label for="contact_email">Contact Email:</label>
