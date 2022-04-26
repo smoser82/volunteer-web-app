@@ -6,6 +6,7 @@ use App\Models\Timeslot;
 use App\Models\Signup;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -26,11 +27,10 @@ class EventListController extends Controller
         if ($event != null) {
             $timeslots = null;
             if (Auth::check()) {
-                $timeslots = Timeslot::selectRaw("timeslots.*, signups.id_user")
-                    ->where('timeslots.id_event', $id_event)
-                    ->leftJoin('signups', 'signups.id_slot', '=', 'timeslots.id')
-                    ->orderBy('timeslots.datetime_start')
-                    ->get();
+                $timeslots = DB::select(
+                    'SELECT * FROM timeslots t LEFT OUTER JOIN
+                    (SELECT id_user, id_slot FROM signups WHERE id_user = ?) s
+                    ON s.id_slot = t.id WHERE t.id = ?;' , [Auth::user()->id, $id_event]);
             }
             return view('event', ['event' => $event, 'timeslots' => $timeslots]);
         } else {
@@ -70,10 +70,17 @@ class EventListController extends Controller
 
     public function signup(Request $request) {
         if (Auth::check()) {
-            $newSignup = new Signup;
-            $newSignup->id_user = Auth::user()->id;
-            $newSignup->id_slot = $request->id_timeslot;
-            $newSignup->save();
+            $existingSignup = Signup::where('id_user', Auth::user()->id)
+                ->where('id_slot', $request->id_timeslot)
+                ->first();
+
+            // Only add signup if one doesn't already exist
+            if ($existingSignup == null) {
+                $newSignup = new Signup;
+                $newSignup->id_user = Auth::user()->id;
+                $newSignup->id_slot = $request->id_timeslot;
+                $newSignup->save();
+            }   
         }
 
         return back()->withInput();
@@ -81,13 +88,39 @@ class EventListController extends Controller
 
     public function removeSignup(Request $request) {
         if (Auth::check()) {
-            $signup = Signup::where('id_user', Auth::user()->id)
-                            ->where('id_slot', $request->id_timeslot)
-                            ->first();
-
-            $signup->delete();
+            $signups = Signup::where('id_user', Auth::user()->id)
+                ->where('id_slot', $request->id_timeslot)
+                ->get();
+            
+            // Remove all signups the user has for this timeslot
+            foreach ($signups as $signup) {
+                $signup->delete();
+            }
         }
 
         return back()->withInput();
+    }
+
+    public function removeEvent(Request $request) {
+        $timeslots = Timeslot::where('id_event', $request->id_event)->get();
+
+        // For each timeslot associated with this event
+        foreach ($timeslots as $timeslot) {
+            $signups = Signup::where('id_slot', $timeslot->id)->get();
+            
+            // Remove all signups
+            foreach ($signups as $signup) {
+                $signup->delete();
+            }
+
+            $timeslot->delete();
+        }
+
+        // Then remove the event itself
+        $event = Event::where('id', $request->id_event)->first();
+
+        $event->delete();
+
+        return redirect('/');
     }
 }

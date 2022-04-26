@@ -23,7 +23,7 @@
                         @auth
                             <br/><h1>Timeslots:</h1>
                             @foreach ($timeslots as $timeslot)
-                                @if ($timeslot->id_user == 0)
+                                @if ($timeslot->id_user != Auth::user()->id)
                                     <form method="POST" action="/signup">
                                         {{ csrf_field() }}
                                         <input type="hidden" value="{{ $timeslot->id }}" id="id_timeslot" name="id_timeslot">
@@ -49,6 +49,17 @@
                                     </form>
                                 @endif
                             @endforeach
+
+                            @if (Auth::user()->id == $event->id_owner)
+                                <form method="POST" action="/removeEvent">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" value="{{ $event->id }}" id="id_event" name="id_event">
+                                    <p>You are the owner of this event. Click this button to remove the event.</p>
+                                    <x-button style="border: 2px solid black; background-color: red; color: black;">
+                                        {{ __('DELETE EVENT') }}
+                                    </x-button>
+                                </form>
+                            @endif
                         @else
                             <br/><h2>Please login to see available timeslots for this event.</h2>
                         @endauth
