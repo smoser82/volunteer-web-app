@@ -23,7 +23,7 @@
                         @auth
                             <br/><h1>Timeslots:</h1>
                             @foreach ($timeslots as $timeslot)
-                                @if ($timeslot->id_user == $Auth::user()->id)
+                                @if ($timeslot->id_user != Auth::user()->id)
                                     <form method="POST" action="/signup">
                                         {{ csrf_field() }}
                                         <input type="hidden" value="{{ $timeslot->id }}" id="id_timeslot" name="id_timeslot">
