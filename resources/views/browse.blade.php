@@ -13,7 +13,7 @@
                         <!-- Uses PHP to get query values -->
                         @php
                             // Gets the query parameter for sorting, defaulting to title
-                            $sort = request()->query('sort', 'title');
+                            $sort = request()->query('sort', 'date_start');
 
                             // Gets whether the sorting should be ascending or not, defaulting to true
                             $asc = request()->query('asc','true');
